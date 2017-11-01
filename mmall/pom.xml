@@ -6,137 +6,286 @@
   <packaging>war</packaging>
   <name>mmall</name>
   <description/>
+  <!-- 为pom定义一些常量，在pom中的其它地方可以直接引用 使用方式 如下 ：${file.encoding} -->  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    
+    <org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+    <org.mybatis.version>3.4.1</org.mybatis.version>
+    <org.mybatis.spring.version>1.3.0</org.mybatis.spring.version>
   </properties>
+<!-- groupId : 组织标识，例如：org.codehaus.mojo，在M2_REPO目录下，将是: org/codehaus/mojo目录。
+    artifactId : 项目名称，例如：my-project，在M2_REPO目录下，将是：org/codehaus/mojo/my-project目录。
+    version : 版本号，例如：1.0，在M2_REPO目录下，将是：org/codehaus/mojo/my-project/1.0目录。
+    packaging : 打包的格式，可以为：pom , jar , maven-plugin , ejb , war , ear , rar , par -->
+ <!-- 定义本项目的依赖关系 -->  
   <dependencies>
+  <!-- 每个dependency都对应这一个jar包 --> 
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>bean-validator</artifactId>
-      <version>3.0-JBoss-4.0.2</version>
-      <scope>provided</scope>
+	  <groupId>org.apache.tomcat</groupId>
+	  <artifactId>tomcat-servlet-api</artifactId>
+	  <version>7.0.64</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-oxm</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${org.springframework.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.enterprise.deploy</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    
+    <!-- lp -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.7.3</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${org.mybatis.spring.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.jms</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${org.mybatis.version}</version>
+    </dependency>
+    
+    <!-- lp -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.6.11</version>
+    </dependency>
+    
+    <!-- json序列化和反序列化-->
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.12</version>
+    </dependency>
+    
+    <!--连接池-->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.4</version>
+      <!--<scope>runtime</scope>-->
+    </dependency>
+    <!-- maven认为，程序对外部的依赖会随着程序的所处阶段和应用场景而变化，所以maven中的依赖关系有作用域(scope)的限制。 -->  
+     <!--scope包含如下的取值：compile（编译范围）、provided（已提供范围）、runtime（运行时范围）、test（测试范围）、system（系统范围） -->  
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.2</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.management.j2ee</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.1.2</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.2.0.3</version>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>javax.persistence</artifactId>
-      <version>2.0.0</version>
-      <scope>provided</scope>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>20.0</version>
     </dependency>
+    
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.resource</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.5</version>
     </dependency>
+    
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.security.auth.message</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
     </dependency>
+    
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.security.jacc</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <!--<scope>test</scope>-->
     </dependency>
+    <!-- 时间处理-->
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.servlet</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.3</version>
     </dependency>
+    <!-- id加密解密 -->
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.servlet.jsp</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>org.hashids</groupId>
+      <artifactId>hashids</artifactId>
+      <version>1.0.1</version>
     </dependency>
+    
+     <!-- ftpclient -->
     <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.servlet.jsp.jstl</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>commons-net</groupId>
+      <artifactId>commons-net</artifactId>
+      <version>3.1</version>
     </dependency>
+    
+     <!-- file upload -->
+
+    <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
     <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api-osgi</artifactId>
-      <version>2.2.1</version>
-      <scope>provided</scope>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.2.2</version>
     </dependency>
+    
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>1.1.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>jstl-impl</artifactId>
-      <version>1.2</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.4.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.xml</groupId>
-      <artifactId>webservices-api-osgi</artifactId>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
       <version>2.0.1</version>
-      <scope>provided</scope>
+    </dependency>
+    
+     <!-- mybatis pager -->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.1.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.github.miemiedev</groupId>
+      <artifactId>mybatis-paginator</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.github.jsqlparser</groupId>
+      <artifactId>jsqlparser</artifactId>
+      <version>0.9.4</version>
+    </dependency>
+     <!-- alipay -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.10</version>
     </dependency>
     <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-osgi-bundle</artifactId>
-      <version>1.0.1-SP3</version>
-      <scope>provided</scope>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.10</version>
+    </dependency>
+     <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
     </dependency>
     <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>javax.servlet.jsp.jstl</artifactId>
-      <version>1.2.1</version>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
     </dependency>
+    
+    <dependency>
+      <groupId>com.google.zxing</groupId>
+      <artifactId>core</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>1.3</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+ 
   </dependencies>
+  
+  
   <build>
+  <!-- 产生的构件的文件名，默认值是${artifactId}-${version}。 --> 
+   <finalName>mmall</finalName>
+   <!-- 构建产生的所有文件存放的目录,默认为${basedir}/target，即项目根目录下的target -->  
+    <!-- <directory>${basedir}/target</directory>  -->
+    <!--使用的插件列表 。 --> 
     <plugins>
+       <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.2</version>
+        <!--作为DOM对象的配置,配置项因插件而异 -->
+        <configuration>
+          <verbose>true</verbose>
+          <overwrite>true</overwrite>
+        </configuration>
+      </plugin>
+      
       <plugin>
+       <!-- geelynote maven的核心插件之-complier插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置，在pom.xml里面加上 增加编译插件 -->
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
+          <encoding>UTF-8</encoding>
+           <!-- 编译时引入本地lib下的jar包。因为后续会将集成支付宝需要的jar放在lib下，这样配置后发布到线上时，编译不会报错 -->
+          <compilerArguments>
+            <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+          </compilerArguments>
         </configuration>
       </plugin>
-      <plugin>
+     <!--  <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.2</version>
         <configuration>
           <version>3.0</version>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
-      </plugin>
-    </plugins>
+      </plugin>-->
+    </plugins> 
+    <!--主要定义插件的共同元素、扩展元素集合，类似于dependencyManagement， -->  
+    <!--所有继承于此项目的子项目都能使用。该插件配置项直到被引用时才会被解析或绑定到生命周期。 -->  
+    <!--给定插件的任何本地配置都会覆盖这里的配置 -->
     <pluginManagement>
     	<plugins>
     		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -157,8 +306,8 @@
     								</artifactId>
     								<versionRange>[2.6,)</versionRange>
     								<goals>
-    									<goal>resources</goal>
     									<goal>testResources</goal>
+    									<goal>resources</goal>
     								</goals>
     							</pluginExecutionFilter>
     							<action>
