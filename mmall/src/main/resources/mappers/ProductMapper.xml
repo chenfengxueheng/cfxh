@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.pojo.Product">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="CATEGORY_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SUBTITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="MAIN_IMAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SUB_IMAGES" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DETAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PRICE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="STOCK" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="STATUS" javaType="java.lang.Integer" jdbcType="DECIMAL" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CATEGORY_ID, NAME, SUBTITLE, MAIN_IMAGE, SUB_IMAGES, DETAIL, PRICE, STOCK, STATUS, 
+    CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MMALL_PRODUCT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from MMALL_PRODUCT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.pojo.Product">
+    insert into MMALL_PRODUCT (ID, CATEGORY_ID, NAME, 
+      SUBTITLE, MAIN_IMAGE, SUB_IMAGES, 
+      DETAIL, PRICE, STOCK, 
+      STATUS, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=DECIMAL}, #{categoryId,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, 
+      #{subtitle,jdbcType=VARCHAR}, #{mainImage,jdbcType=VARCHAR}, #{subImages,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{stock,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, SYSDATE(), SYSDATE()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.pojo.Product">
+    insert into MMALL_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="categoryId != null">
+        CATEGORY_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="subtitle != null">
+        SUBTITLE,
+      </if>
+      <if test="mainImage != null">
+        MAIN_IMAGE,
+      </if>
+      <if test="subImages != null">
+        SUB_IMAGES,
+      </if>
+      <if test="detail != null">
+        DETAIL,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="stock != null">
+        STOCK,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mainImage != null">
+        #{mainImage,jdbcType=VARCHAR},
+      </if>
+      <if test="subImages != null">
+        #{subImages,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        SYSDATE(),
+      </if>
+      <if test="updateTime != null">
+        SYSDATE(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Product">
+    update MMALL_PRODUCT
+    <set>
+      <if test="categoryId != null">
+        CATEGORY_ID = #{categoryId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null">
+        SUBTITLE = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mainImage != null">
+        MAIN_IMAGE = #{mainImage,jdbcType=VARCHAR},
+      </if>
+      <if test="subImages != null">
+        SUB_IMAGES = #{subImages,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        DETAIL = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        STOCK = #{stock,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = SYSDATE(),
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Product">
+    update MMALL_PRODUCT
+    set CATEGORY_ID = #{categoryId,jdbcType=DECIMAL},
+      NAME = #{name,jdbcType=VARCHAR},
+      SUBTITLE = #{subtitle,jdbcType=VARCHAR},
+      MAIN_IMAGE = #{mainImage,jdbcType=VARCHAR},
+      SUB_IMAGES = #{subImages,jdbcType=VARCHAR},
+      DETAIL = #{detail,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DECIMAL},
+      STOCK = #{stock,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = SYSDATE()
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

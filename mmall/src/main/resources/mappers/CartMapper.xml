@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmall.dao.CartMapper">
+  <resultMap id="BaseResultMap" type="com.mmall.pojo.Cart">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <arg column="USER_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="PRODUCT_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="QUANTITY" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="CHECKED" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, PRODUCT_ID, QUANTITY, CHECKED, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MMALL_CART
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from MMALL_CART
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.mmall.pojo.Cart">
+    insert into MMALL_CART (ID, USER_ID, PRODUCT_ID, 
+      QUANTITY, CHECKED, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{productId,jdbcType=DECIMAL}, 
+      #{quantity,jdbcType=DECIMAL}, #{checked,jdbcType=DECIMAL}, SYSDATE(), 
+      SYSDATE())
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmall.pojo.Cart">
+    insert into MMALL_CART
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="quantity != null">
+        QUANTITY,
+      </if>
+      <if test="checked != null">
+        CHECKED,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="checked != null">
+        #{checked,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        SYSDATE(),
+      </if>
+      <if test="updateTime != null">
+        SYSDATE(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Cart">
+    update MMALL_CART
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null">
+        PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        QUANTITY = #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="checked != null">
+        CHECKED = #{checked,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Cart">
+    update MMALL_CART
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      QUANTITY = #{quantity,jdbcType=DECIMAL},
+      CHECKED = #{checked,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = SYSDATE()
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
