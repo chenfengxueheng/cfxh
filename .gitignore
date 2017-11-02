@@ -1,2 +1,6 @@
 *.jar
 *.class
+*.jsp
+*.jpg
+*.gif
+*.css
